@@ -1,0 +1,500 @@
+
+  <style>
+:root {
+  --primary: #1e90ff;
+  --primary-dark: #1266cc;
+  --error: #ff4444;
+  --success: #00b894;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+}
+
+.subtitle {
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-weight: normal;
+  text-align: center;
+  font-size: clamp(0.9rem, 4vw, 1.1rem);
+}
+
+.upload-container {
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 20px auto;
+}
+
+.upload-area {
+  border: 2px dashed #888;
+  border-radius: 10px;
+  height: auto;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  position: relative;
+  text-align: center;
+  padding: 20px;
+}
+
+.upload-area.dragover {
+  border-color: var(--primary);
+  background-color: #e6f0ff;
+  color: var(--primary);
+}
+
+.upload-icon {
+  font-size: clamp(32px, 8vw, 48px);
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.preview-box {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.preview {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  display: none;
+}
+
+.preview-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+  background: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0;
+  transition: width 0.3s;
+}
+
+.message {
+  font-size: 0.9rem;
+  color: #555;
+  min-height: 20px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.error {
+  color: var(--error);
+}
+
+.success {
+  color: var(--success);
+}
+
+.loading-spinner {
+  display: none;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.result-actions {
+  display: none;
+  width: 100%;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.result-actions.show {
+  display: flex;
+}
+
+.result-btn {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* Enhanced responsiveness */
+@media (max-width: 768px) {
+  .upload-container {
+    padding: 20px;
+    margin: 15px;
+  }
+
+  .preview-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .preview-box {
+    min-width: unset;
+    width: 100%;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .upload-container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .upload-area {
+    min-height: 150px;
+    padding: 15px;
+  }
+
+  .upload-icon {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .result-btn {
+    font-size: 0.9rem;
+  }
+}
+
+  </style>
+
+  {% extends 'base.html' %}
+  {% block content %}
+  <div class="upload-container">
+    <h1>Remove Image Background</h1>
+    <p class="subtitle">Upload an image to automatically remove the background in seconds</p>
+
+    <label for="fileUpload" class="upload-area" id="uploadArea">
+      <div class="upload-icon">📁</div>
+      <div id="uploadText">Drag & Drop or Click to Upload</div>
+      <div id="fileInfo" style="display: none;"></div>
+    </label>
+    <input type="file" id="fileUpload" name="image" accept="image/*" required />
+
+    <div class="preview-container" id="previewContainer">
+      <div class="preview-box">
+        <span class="preview-label">Original</span>
+        <img id="originalPreview" class="preview" src="#" alt="Original image" />
+      </div>
+      <div class="preview-box">
+        <span class="preview-label">Result</span>
+        <img id="resultPreview" class="preview" src="#" alt="Result preview" />
+      </div>
+    </div>
+
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <form id="uploadForm" action="/api/remove/" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="image" id="hiddenImage" />
+      <button type="submit" disabled id="submitBtn">
+        <span id="btnText">Remove Background</span>
+        <div class="loading-spinner" id="loadingSpinner"></div>
+      </button>
+    </form>
+
+    <div class="result-actions" id="resultActions">
+      <button class="result-btn" id="downloadBtn">Download Result</button>
+      <button class="result-btn" id="newImageBtn">New Image</button>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadText = document.getElementById('uploadText');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileInput = document.getElementById('fileUpload');
+    const originalPreview = document.getElementById('originalPreview');
+    const resultPreview = document.getElementById('resultPreview');
+    const previewContainer = document.getElementById('previewContainer');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
+    const message = document.getElementById('message');
+    const uploadForm = document.getElementById('uploadForm');
+    const resultActions = document.getElementById('resultActions');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const newImageBtn = document.getElementById('newImageBtn');
+
+    // Global variables
+    let resultBlob = null;
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+    // Event Listeners
+    uploadArea.addEventListener('click', () => fileInput.click());
+    
+    // Drag & Drop events
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if(files.length) handleFile(files[0]);
+    });
+
+    // File input change
+    fileInput.addEventListener('change', () => {
+      if(fileInput.files.length) handleFile(fileInput.files[0]);
+    });
+
+    // New image button
+    newImageBtn.addEventListener('click', resetForm);
+
+    // Download button
+    downloadBtn.addEventListener('click', downloadResult);
+
+    // Handle file selection
+    function handleFile(file) {
+      // Validate file
+      if(!file.type.startsWith('image/')) {
+        showMessage('Please upload a valid image file (JPEG, PNG, etc.)', 'error');
+        resetForm();
+        return;
+      }
+      
+      if(file.size > MAX_FILE_SIZE) {
+        showMessage(`File too large (max ${formatFileSize(MAX_FILE_SIZE)})`, 'error');
+        resetForm();
+        return;
+      }
+
+      // Update UI
+      uploadArea.classList.add('has-image');
+      uploadText.style.display = 'none';
+      fileInfo.style.display = 'block';
+      fileInfo.innerHTML = `
+        <strong>${file.name}</strong><br>
+        ${formatFileSize(file.size)}
+      `;
+      
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        originalPreview.src = e.target.result;
+        originalPreview.style.display = 'block';
+        previewContainer.style.display = 'flex';
+        submitBtn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+      
+      showMessage('');
+    }
+
+    // Submit form with AJAX
+    uploadForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const file = fileInput.files[0];
+      if(!file) {
+        showMessage('Please select an image first.', 'error');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      // UI updates
+      showMessage('Processing your image...');
+      submitBtn.disabled = true;
+      btnText.textContent = 'Processing...';
+      loadingSpinner.style.display = 'block';
+      progressContainer.style.display = 'block';
+
+      try {
+        const response = await fetch(uploadForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(response.statusText || 'Upload failed');
+        }
+
+        const blob = await response.blob();
+        resultBlob = blob;
+        
+        // Show result
+        const resultUrl = URL.createObjectURL(blob);
+        resultPreview.src = resultUrl;
+        resultPreview.style.display = 'block';
+        
+        // Update UI
+        showMessage('Background removed successfully!', 'success');
+        progressBar.style.width = '100%';
+        resultActions.classList.add('show');
+        btnText.textContent = 'Done!';
+        
+        // Clean up
+        setTimeout(() => {
+          progressContainer.style.display = 'none';
+          progressBar.style.width = '0%';
+        }, 2000);
+      } catch (err) {
+        showMessage('Error: ' + err.message, 'error');
+        submitBtn.disabled = false;
+        btnText.textContent = 'Try Again';
+      } finally {
+        loadingSpinner.style.display = 'none';
+      }
+    });
+
+    // Download result
+    function downloadResult() {
+      if (!resultBlob) return;
+      
+      const url = URL.createObjectURL(resultBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      
+      // Extract original file name and change extension to .png
+      const originalName = fileInput.files[0].name.split('.').slice(0, -1).join('.') || 'image';
+      a.download = `${originalName}-nobg.png`;
+      
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Reset form
+    function resetForm() {
+      fileInput.value = '';
+      originalPreview.style.display = 'none';
+      resultPreview.style.display = 'none';
+      previewContainer.style.display = 'none';
+      uploadArea.classList.remove('has-image');
+      uploadText.style.display = 'block';
+      fileInfo.style.display = 'none';
+      fileInfo.innerHTML = '';
+      submitBtn.disabled = true;
+      btnText.textContent = 'Remove Background';
+      resultActions.classList.remove('show');
+      showMessage('');
+      resultBlob = null;
+    }
+
+    // Helper functions
+    function showMessage(text, type = '') {
+      message.textContent = text;
+      message.className = 'message';
+      if (type) message.classList.add(type);
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+  </script>
+{% endblock %}

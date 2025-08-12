@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  :root {
+    --primary: #1e90ff;
+    --primary-dark: #1266cc;
+    --text-dark: #333;
+    --text-light: #555;
+    --bg-light: #f9f9f9;
+  }
+
+ 
+
+  .about-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h1, h2 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  .values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .value-card {
+    background: #f4f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border-left: 4px solid var(--primary);
+    transition: background 0.3s ease;
+  }
+
+  .value-card:hover {
+    background: #e6f0ff;
+  }
+
+  .team-section {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .team-member img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid var(--primary);
+  }
+
+  .cta-box {
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  .cta-box a {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="about-container">
+
+  <!-- Intro -->
+  <h1>About Us</h1>
+  <p>
+    Welcome to <strong>Bg Remover</strong> — an AI-powered tool that removes backgrounds in seconds.
+    Our mission is to make image editing effortless and accessible to everyone.
+  </p>
+
+  <!-- Story -->
+  <h2>Our Story</h2>
+  <p>
+    We started this project to help people save time on tedious background removal.
+    From designers to students, anyone can now achieve professional results with a single click.
+  </p>
+
+  <!-- Core Values -->
+  <h2>Our Core Values</h2>
+  <div class="values">
+    <div class="value-card">
+      <h3>🚀 Innovation</h3>
+      <p>We use cutting-edge AI technology to deliver the best results.</p>
+    </div>
+    <div class="value-card">
+      <h3>🔒 Privacy</h3>
+      <p>Your images are never stored — processing happens securely and temporarily.</p>
+    </div>
+    <div class="value-card">
+      <h3>⚡ Speed</h3>
+      <p>Get your background removed in just a few seconds, no delays.</p>
+    </div>
+    <div class="value-card">
+      <h3>💡 Simplicity</h3>
+      <p>Our interface is clean, simple, and easy to use for everyone.</p>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="team-section">
+    <h2>Meet the Creator</h2>
+    <div class="team-member">
+      <img src="{% static 'images/profile.png' %}" alt="Creator Photo">
+      <h3>Muzammil Riaz</h3>
+      <p>FullStack Developer</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    Want to try it yourself?  
+    <a href="{% url 'home' %}">Go to Home Page</a>
+  </div>
+</div>
+{% endblock %}

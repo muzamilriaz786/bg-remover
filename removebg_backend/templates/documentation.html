@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  :root {
+    --primary: #1e90ff;
+    --primary-dark: #1266cc;
+    --text-dark: #333;
+    --text-light: #555;
+    --bg-light: #f9f9f9;
+  }
+
+  body {
+    background: var(--bg-light);
+  }
+
+  .doc-container {
+    max-width: 950px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  h1 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  h2 {
+    color: var(--primary-dark);
+    margin-top: 30px;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 6px;
+  }
+
+  p, li {
+    color: var(--text-light);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  ul, ol {
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+  ul li, ol li {
+    margin-bottom: 6px;
+  }
+
+  .faq-section {
+    margin-top: 20px;
+  }
+
+  .faq-item {
+    margin-bottom: 20px;
+    background: #f4f9ff;
+    padding: 15px;
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+
+  .faq-item:hover {
+    background: #e6f0ff;
+  }
+
+  .faq-item h3 {
+    color: var(--text-dark);
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .contact-box {
+    background: var(--primary);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .contact-box a {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .doc-container {
+      padding: 20px;
+    }
+  }
+  .doc-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* space between logo and text */
+  font-size: 1.8rem;
+}
+
+.doc-logo {
+  height: 36px;
+  width: auto;
+}
+
+</style>
+
+<div class="doc-container">
+    
+  <h1 class="doc-title">
+  <img src="{% static 'images/remover.png' %}" alt="Bg Remover Logo" class="doc-logo" />
+  Bg Remover – Documentation
+</h1>
+
+    Welcome to the documentation for our AI-powered background remover.
+    This tool automatically removes the background from any image in just a few seconds.
+    Upload your image and instantly get a transparent PNG — no manual editing required.
+  </p>
+
+  <h2>✨ Features</h2>
+  <ul>
+    <li>Instant AI background removal</li>
+    <li>Supports JPG & PNG formats</li>
+    <li>High-quality transparent output</li>
+    <li>Free to use with file size limit</li>
+  </ul>
+
+  <h2>📌 How to Use</h2>
+  <ol>
+    <li>Go to the <strong>Home</strong> page.</li>
+    <li>Click the upload area or drag & drop your image.</li>
+    <li>Wait a few seconds for processing.</li>
+    <li>Download your background-free PNG file.</li>
+  </ol>
+
+  <h2>⚠️ Limitations</h2>
+  <ul>
+    <li>Max file size: <strong>5 MB</strong></li>
+    <li>Only image files are supported</li>
+    <li>Processing time depends on image size</li>
+  </ul>
+
+  <h2>❓ FAQ</h2>
+  <div class="faq-section">
+    <div class="faq-item">
+      <h3>Q: Is this tool free?</h3>
+      <p>✅ Yes, it’s completely free to use.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Q: Do you store my images?</h3>
+      <p>🔒 No, all processing is temporary and your images are not stored permanently.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Q: Can I process multiple images at once?</h3>
+      <p>📌 Currently, you can process only one image at a time.</p>
+    </div>
+  </div>
+
+  <h2>📧 Contact & Support</h2>
+  <div class="contact-box">
+    Have a question or feature request?  
+    Email us at <a href="mailto:support@example.com">support@example.com</a>
+  </div>
+</div>
+{% endblock %}

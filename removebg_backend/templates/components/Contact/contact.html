@@ -1,0 +1,112 @@
+
+{% load static %}
+
+<style>
+  :root {
+    --primary: #1e90ff;
+    --primary-dark: #1266cc;
+    --bg-light: #f9f9f9;
+    --text-dark: #333;
+    --text-light: #555;
+  }
+
+  body {
+    background: var(--bg-light);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .contact-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  p {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 30px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  input, textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+    transition: border 0.3s ease;
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+  }
+
+  button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: var(--primary-dark);
+  }
+
+  .contact-info {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
+  .contact-info a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="contact-container">
+  <h1>📬 Contact Us</h1>
+  <p>We’d love to hear from you! Fill out the form below or reach us via email.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+
+  <div class="contact-info">
+    <p>📧 Email: <a href="mailto:support@example.com">support@example.com</a></p>
+  </div>
+</div>
+

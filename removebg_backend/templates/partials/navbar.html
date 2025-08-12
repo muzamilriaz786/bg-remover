@@ -1,0 +1,123 @@
+<!-- templates/partials/navbar.html -->
+ {% load static %}
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+  }
+
+  nav {
+    background-color: #1a202c; /* dark slate */
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between; /* space between title and menu */
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(26, 32, 44, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  nav h1 {
+    color: white;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0;
+    cursor: default;
+    user-select: none;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li a {
+    color: #cbd5e1; /* light slate */
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  /* Underline effect on hover and active */
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: #3182ce; /* blue-600 */
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+
+  nav ul li a:hover::after,
+  nav ul li a.active::after {
+    width: 100%;
+  }
+
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: #edf2f7; /* near white */
+  }
+
+  /* Responsive: stack vertically */
+  @media (max-width: 700px) {
+    nav {
+      padding: 0 20px;
+      height: auto;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    nav h1 {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    nav ul {
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    nav ul li a {
+      font-size: 1.1rem;
+      padding: 10px 16px;
+      width: 100%;
+      display: block;
+    }
+  }
+</style>
+
+<nav aria-label="Primary navigation">
+  <div style="display: flex; align-items: center;gap: 10px;">
+<img src="{% static 'images/remover.png' %}" 
+     style="height: 36px; width: auto; filter: brightness(0) invert(1);" />
+     <h1 style="color: white;">
+  Bg <span style="color: #000000; -webkit-text-stroke: 0.5px rgb(255, 255, 255);">Remover</span>
+</h1>
+
+     </div>
+  <ul>
+    <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+    <li><a href="{% url 'documentation' %}" class="{% if request.path == '/documentation/' %}active{% endif %}">Documentation</a></li>
+    <li><a href="{% url 'features' %}" class="{% if request.path == '/features/' %}active{% endif %}">Features</a></li>
+    <li><a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">About Us</a></li>
+    <li><a href="{% url 'contact' %}" class="{% if request.path == '/contact/' %}active{% endif %}">Contact</a></li>
+  </ul>
+</nav>
